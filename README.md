@@ -4,7 +4,7 @@
 
 # 🌟 Wonder Quest
 
- **Wonder Quest** est un projet Minecraft unique, axé sur la survie, l’exploration et les factions, avec un gameplay enrichi et immersif.
+ Wonder Quest est un projet Minecraft unique, axé sur la survie, l’exploration et les factions, avec un gameplay enrichi et immersif.
 
 ---
 
