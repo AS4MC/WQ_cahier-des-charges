@@ -28,7 +28,7 @@ Il ne contient pas le code complet du serveur ou du launcher, mais sert de point
 
 - **Version Minecraft :** 1.20.1
 - **Thème :** Survie RPG, exploration, factions
-- **Technologies :** Mohist (Forge + Bukkit/Spigot), Skript, AnvilGUI, AuthMe
+- **Technologies :** Mohist (Forge + Bukkit/Spigot)
 - **Objectif :** Offrir une expérience de jeu équilibrée et captivante sans mods côté client.
 
 ---
