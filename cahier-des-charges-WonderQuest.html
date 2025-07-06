@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cahier des charges - Serveur Minecraft RPG</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      color: #2b7a78;
+    }
+    h2 {
+      color: #3aafa9;
+      margin-top: 30px;
+    }
+    h3 {
+      color: #17252a;
+      margin-top: 20px;
+    }
+    p {
+      margin: 5px 0;
+    }
+    ul {
+      margin: 5px 0 15px 20px;
+    }
+    .section {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 6px;
+    }
+    .code {
+      background: #eee;
+      font-family: monospace;
+      padding: 3px 6px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📄 Cahier des charges complet – Serveur Minecraft Survie RPG (2025)</h1>
+
+  <div class="section">
+    <h2>1️⃣ Général</h2>
+    <p><strong>Version Minecraft :</strong> 1.20.1</p>
+    <p><strong>Plateforme :</strong> Mohist (Forge + Bukkit/Spigot/Paper)</p>
+    <p><strong>Nombre max de joueurs :</strong> 250</p>
+    <p><strong>Thème :</strong> Survie, exploration, factions, immersion réaliste</p>
+    <p><strong>Langue :</strong> Français</p>
+    <p><strong>Accès :</strong> Aucune dépendance à des mods côté client</p>
+  </div>
+
+  <div class="section">
+    <h2>2️⃣ Connexion et Authentification</h2>
+    <p><strong>Authentification obligatoire :</strong> AuthMe</p>
+    <ul>
+      <li>GUI d’inscription et connexion lancé automatiquement</li>
+      <li>Saisie mot de passe via AnvilGUI + double confirmation</li>
+      <li>Saisie email de récupération</li>
+      <li>5 erreurs = kick + blocage 45 sec</li>
+      <li>Connexion obligatoire sauf reconnexion < 30 min</li>
+      <li>Message : « Bienvenue sur le serveur ! Veuillez vous authentifier. »</li>
+      <li>Blocage pseudos réservés (Admin, Modérateur, Owner…)</li>
+      <li>Si pseudo interdit : « Ce pseudo est réservé. Merci d’en choisir un autre. »</li>
+    </ul>
+    <p><strong>Commandes :</strong></p>
+    <ul>
+      <li><span class="code">/register motdepasse motdepasse</span></li>
+      <li><span class="code">/login motdepasse</span></li>
+      <li><span class="code">/changepassword ancien nouveau</span></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>3️⃣ Spawn Général et Monde Survie</h2>
+    <h3>Spawn Général</h3>
+    <ul>
+      <li>Zone protégée : aucun PvP, aucun mob</li>
+      <li>Portail central vers Terre Inexplorée</li>
+      <li>Message : « Portail vers la Terre Inexplorée – Traversez pour accéder au spawn. »</li>
+      <li>Effets visuels + retour portail</li>
+      <li>GUI mise à jour une seule fois par version</li>
+    </ul>
+    <h3>Monde Terre Inexplorée</h3>
+    <ul>
+      <li>Taille : 2000 x 2000 blocs</li>
+      <li>6 biomes générés avec WorldPainter</li>
+      <li>Ville centrale sécurisée (PNJ : Guide, Maître des Contrats, Commerçants)</li>
+      <li>Sortie de zone : « Vous quittez la zone sécurisée. Soyez prudent… »</li>
+      <li>Zone tampon 200 blocs, rappel toutes les 5 min</li>
+      <li>Bordure téléporte le joueur + message</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>4️⃣ Classes Joueur</h2>
+    <p><strong>Constructeur :</strong> PV 24, inventaire +1 ligne, réduction consommation blocs, -30% dégâts chute.</p>
+    <p><strong>Combattant :</strong> PV 24, -30% dégâts, +15% dégâts mêlée, vitesse attaque +20%.</p>
+    <p><strong>Explorateur :</strong> PV 27, +30% vitesse, vision nocturne, carte HUD.</p>
+    <p><strong>Survivant :</strong> PV 30, -40% dégâts mobs, +25% dégâts arc, regen +30%, nourriture x2.</p>
+    <p><strong>Progression :</strong> Jusqu'au niveau 100, 60 niveaux max en améliorations (5 niveaux par upgrade).</p>
+  </div>
+
+  <div class="section">
+    <h2>5️⃣ Factions et Protection</h2>
+    <ul>
+      <li>Création gratuite, max 20 membres, 80 chunks.</li>
+      <li>Power : +4 par joueur connecté.</li>
+      <li>Zone tampon 200 blocs autour spawn et ville.</li>
+      <li>Message en entrant : « Vous entrez sur le territoire de Forteresse d’Ébène [Faction Horizon] »</li>
+      <li>Bordures particules visibles.</li>
+      <li>Pillage : quota 80 blocs, protection 45 min après raid.</li>
+      <li>Commandes : /faction create, /invite, /claim, /sethome, /home.</li>
+      <li>Pas de coffre central, /home sans cooldown.</li>
+    </ul>
+    <h3>Rôles et permissions :</h3>
+    <table border="1" cellpadding="5" cellspacing="0">
+      <tr><th>Rôle</th><th>Claim</th><th>Inviter</th><th>Construire</th><th>Coffres</th><th>Promouvoir</th></tr>
+      <tr><td>Chef de Clan</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+      <tr><td>Lieutenant</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+      <tr><td>Survivant</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td><td>❌</td></tr>
+      <tr><td>Nouveau</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>6️⃣ Économie et Commerce</h2>
+    <ul>
+      <li>Monnaie : WonderCoins (votes, progression, contrats, boutique)</li>
+      <li>Commerce joueurs : /commerces et PNJ, prix 1–3000 coins, 3 jours durée, 10 ventes max.</li>
+      <li>Historique public, recherche, tri.</li>
+      <li>Message achat : « Vous avez acheté [Objet] à [Vendeur] pour [Prix] WonderCoins. »</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>7️⃣ Contrats (Quêtes)</h2>
+    <ul>
+      <li>3 actifs max (1 épique)</li>
+      <li>Durée normale 24h, épique 7 jours</li>
+      <li>Abandon = 200 coins</li>
+      <li>Particules exclusives comme récompenses</li>
+      <li>Parchemin des Quêtes, clic gauche = GUI</li>
+      <li>Exemples : tuer mobs, explorer structures, poser blocs, survivre.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>8️⃣ Événements</h2>
+    <ul>
+      <li>Tous les week-ends : double XP</li>
+      <li>Saisonniers : Pâques, Halloween, Noël</li>
+      <li>Contrats thématiques, particules exclusives</li>
+      <li>Boss bar + message lancement</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>9️⃣ HUD Joueur</h2>
+    <ul>
+      <li>Affichage permanent minimaliste</li>
+      <li>Pseudo, grade, classe, XP, coins, FPS, ping, biome, joueurs en ligne, heure Minecraft, bonus temporaires</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🔟 Sécurité et Anti-Cheat</h2>
+    <ul>
+      <li>Anti-cheat complet (kick, ban auto 1j après 3 tentatives, ban instant si triche extrême)</li>
+      <li>Anti-xray, max 2 comptes/IP</li>
+      <li>Blocage pseudos staff, alertes IP suspectes</li>
+      <li>Anti-spam, anti-crash (commandes, redstone, packets)</li>
+      <li>Logs et alertes envoyés Discord staff</li>
+    </ul>
+  </div>
+</body>
+</html>
